@@ -2,11 +2,14 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 import "./AAA.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-contract AAAEth {
-  string public name = "Instant Exchange Contract";
-  AAA public token;
-  uint public rate = 100;
+contract AAAEth is Initializable, UUPSUpgradeable {
+  string public name;
+  IERC20Upgradeable public token;
+  uint public rate;
 
   event TokensPurchased(
     address account,
@@ -22,8 +25,10 @@ contract AAAEth {
     uint rate
   );
 
-  constructor(AAA _token) public {
+  function initialize(IERC20Upgradeable _token) public initializer {
     token = _token;
+    rate = 100;
+    name = "Instant Exchange Contract";
   }
 
   function buyTokens() public payable {
@@ -58,4 +63,5 @@ contract AAAEth {
     emit TokensSold(msg.sender, address(token), _amount, rate);
   }
 
+  function _authorizeUpgrade(address newImplementation) internal override {}
 }

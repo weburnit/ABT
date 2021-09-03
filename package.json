@@ -27,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-dev": "rm -rf src/abis/* && truffle compile --all && truffle migrate --reset && cp src/dev_abis/* src/abis",
+    "build-ropsten": "rm -rf src/abis/* && ABI_FOLDERS=./src/ropsten_abis truffle compile --all && ABI_FOLDERS=./src/ropsten_abis truffle migrate --network ropsten && cp src/ropsten_abis/* src/abis"
   },
   "eslintConfig": {
     "extends": "react-app"

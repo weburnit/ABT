@@ -50,8 +50,8 @@ module.exports = {
             network_id: "*",       // Any network (default: none)
         },
         ropsten: {
-            provider: function() {
-                return new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/"+process.env.INFURA_API_KEY)
+            provider: function () {
+                return new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY)
             },
             network_id: 3
         }
@@ -86,7 +86,7 @@ module.exports = {
     mocha: {
         // timeout: 100000
     },
-    contracts_build_directory: './src/abis/',
+    contracts_build_directory: process.env.ABI_FOLDERS,
     // Configure your compilers
     compilers: {
         solc: {
